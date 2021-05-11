@@ -1,12 +1,20 @@
-﻿using System;
+﻿using LibVLCSharp.Shared;
+using System;
+using System.Threading.Tasks;
 
 namespace MovieFrameArt
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Core.Initialize();
+            using (var libvlc = new LibVLC())
+            {
+                var uri = new Uri(@"\\MEDIASERVER\Movies\Star Wars (1977)\Star.Wars.1977.Remux-2160p.HDR.HEVC.TrueHD.Atmos.7.1.mkv");
+                var video = new Media(libvlc, uri);
+                await video.Parse();
+            }
         }
     }
 }
